@@ -50,6 +50,10 @@ public:
         newArraySequence->arr = this->arr->GetSubArray(startIndex, endIndex);
         return newArraySequence;
     }
+    ArraySequence<T>* CopySequence() override {
+        ArraySequence<T>* CopySequence = new ArraySequence<T>(*this);
+        return CopySequence;
+    }
     ArraySequence<T>* Concat(Sequence<T>* list) override {
         ArraySequence<T>* newArraySequence = new ArraySequence<T>;
         delete newArraySequence->arr;

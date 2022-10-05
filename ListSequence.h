@@ -50,6 +50,12 @@ public:
         newListSequence->list = this->list->GetSubList(startIndex, endIndex);
         return newListSequence;
     }
+
+    ListSequence<T>* CopySequence() override {
+        ListSequence<T>* CopySequence = new ListSequence<T>(*this);
+        return CopySequence;
+    }
+
     ListSequence<T>* Concat(Sequence<T>* plusList) override {
         ListSequence<T>* newListSequence = new ListSequence<T>;
         delete newListSequence->list;

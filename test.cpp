@@ -1,67 +1,58 @@
 #include <iostream>
-#include "DynamicArray.h"
-#include "LinkedList.h"
+#include "Sequence.h"
+#include "ListSequence.h"
+#include "ArraySequence.h"
 #include "complex.h"
-#include "Vector.h"
+#include "Sort.h"
 using namespace std;
 
 int main() 
 { 
-    try {
-        Complex c(1, 2.2);
-        Complex d, e;
-        d.SetRe(4);
-        d.SetIm(0);
-        e.SetRe(-111);
-        e.SetIm(11);
-        d.Print();
-    /// std::cout << c << "\n";
-        int* x = new int[3];
-        ///x = (0, 3, 4);
-        x[0] = 0;
-        x[1] = -3;
-        x[2] = 4;
-        Complex* cq = new Complex[2];
-        cq[0] = c;
-        cq[1] = d;
-        Vector <Complex> com1(cq, 2);
-        Vector <Complex> com2(com1);
-    /// com1.Print();
-         com1.Set(e, 1);
-        std::cout << "Int\n";
-        Vector <int> vect(x, 3);
-        Vector <int> vect2(vect);
-        vect2.Set(17, 2);
-        std::cout << vect.Norma() << "\n";
-        (vect + vect2).Print();
-        /*try {
-            com1.Set(e, 7);
-        }
-        catch(...) {
-            std::cout << "ERROR!!!\n";
-        }*/
-        com1.Print();
-        std::cout << com1.Norma() << "\n";
-        com2.Print();
-        (com1 + com2).Print();
-        std::cout << "QQQ " << (com1 * com2) << "\n";
-        com1.Print();
-        std::cout << c << "\n";
-        com1.MultiplicationNumber(0).Print();
-        int r = 5;
-        Complex t = r;
-        std::cout << t << "\n";
-        std::cout << t.GetAbs() << "\n";
-        vect2.Print();
-        vect.Print();
-        vect2.MultiplicationNumber(-2).Print();
-        (vect2 * -2).Print();
-        (-2 * vect2).Print();
-        std::cout << "SSS \n";
-        std::cout << "SSS " << (vect2 * vect) << "\n";
-        std::cout << "SSS " << vect2.ScalarProduct(vect) << "\n";
-        delete []cq;
-        delete [] x;
+    int* x = new int[8];
+    x[0] = 4;
+    x[1] = 2;
+    x[2] = 3;
+    x[3] = 11;
+    x[4] = 4;
+    x[5] = 2;
+    x[6] = 0;
+    x[7] = 7;
+    ArraySequence <int> dynamicArray(x, 8);
+    InsertionSort <int> a;
+    QuickSort <int> b;
+    ShellSort <int> c;
+    SelectionSort <int> d;
+    dynamicArray.Print();
+    Sequence <int>* sortingArrIn = a.Sort(&dynamicArray, comparison);
+    sortingArrIn->Print();
+    delete sortingArrIn;
+    Sequence <int>* sortingArrQ = b.Sort(&dynamicArray, comparison);
+    sortingArrQ->Print();
+    delete sortingArrQ;
+    Sequence <int>* sortingArrSh = c.Sort(&dynamicArray, comparison);
+    sortingArrSh->Print();
+    delete sortingArrSh;
+    Sequence <int>* sortingArrSel = d.Sort(&dynamicArray, comparison);
+    sortingArrSel->Print();
+    delete sortingArrSel;
+    dynamicArray.Print();
+    std::cout << "\n";
+    ListSequence <int> list(x, 8);
+    list.Print();
+    Sequence <int>* sortingListIn = a.Sort(&list, comparison);
+    sortingListIn->Print();
+    delete sortingListIn;
+    Sequence <int>* sortingListQ = b.Sort(&list, comparison);
+    sortingListQ->Print();
+    delete sortingListQ;
+    Sequence <int>* sortingListSh = c.Sort(&list, comparison);
+    sortingListSh->Print();
+    delete sortingListSh;
+    Sequence <int>* sortingListSel = d.Sort(&list, comparison);
+    sortingListSel->Print();
+    delete sortingListSel;
+    list.Print();
+    delete x;
         ///com1.Print();
     /// std::cout << com1.Norma() << "\n";
     /// vect.Set(7, 1);
@@ -111,6 +102,5 @@ int main()
         (*linkedList1.Concat(&linkedList)).Print();
     */
         return 0;
-    } 
-    catch(...) {std::cout << "\n";}
+    
 }
