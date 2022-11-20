@@ -1,13 +1,14 @@
 #include <cassert>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 #include "Sequence.h"
 #include "ArraySequence.h"
 #include "ListSequence.h"
 #include "complex.h"
 #include "LinkedList.h"
 #include "DynamicArray.h"
-#include "Vector.h"
+#include "Sort.h"
 
  /// testing LinkedList and DynamicArray
 
@@ -302,117 +303,33 @@ void test_creating_sequence() {
     delete [] arr2;
 }
 
-/// testing Complex
 
-void test_creating_complex() {
-    Complex a(1, 0);
-    Complex b = 1;
-    Complex c;
-    c.SetRe(1);
-    c.SetIm(0);
-    assert(a == b);
-    assert(c == b);
-}
 
-void test_operations() {
-    Complex a(1, 1);
-    Complex b(-2, 4);
-    Complex d(-1, 5);
-    assert((a + b) == d);
-    Complex e(3, -3);
-    assert((a - b) == e);
-    Complex f(-6, 2);
-    assert((a * b) == f);
-}
-
-/// testing Vector
-void test_creating_vector() {
-    int* arr = new int[10];
-    for (int i = 0; i < 10; i++) {
-        arr[i] = i;
+void test_sorting() {
+    InsertionSort <int> ex1;
+    SelectionSort <int> ex2;
+    QuickSort <int> ex3;
+    ShellSort <int> ex4;
+    int* arr = new int[1000];
+    for (int i = 0; i < 1000; i++) {
+        arr[i] = rand();
     }
-    int* arr2 = new int[10];
-    for (int i = 0; i < 10; i++) {
-        arr2[i] = i;
-    }
-    Vector<int> v(arr, 10, 1);
-    Vector<int> v2(arr2, 10, 1);
-    assert(v == v2);
-    Vector<int> v3(v);
-    v.Set(15, 3);
-    assert(!(v == v3));
-    Vector<int> vv(arr, 10, 2);
-    Vector<int> vv2(arr2, 10, 2);
-    assert(vv == vv2);
-    Vector<int> vv3(vv);
-    vv.Set(15, 3);
-    assert(vv.Get(3) == 15);
-    assert(!(vv == vv3));
+    ArraySequence<int> array(arr, 1000);
+
+    ArraySequence<int>* arrayInsS = (ArraySequence<int>*) (ex1.Sort(&array, comparison));
+    ArraySequence<int>* arraySelS = (ArraySequence<int>*) (ex1.Sort(&array, comparison));
+    ArraySequence<int>* arrayQS = (ArraySequence<int>*) (ex1.Sort(&array, comparison));
+    ArraySequence<int>* arrayShS = (ArraySequence<int>*) (ex1.Sort(&array, comparison));
+    assert(*arrayInsS == *arraySelS);
+    assert(*arraySelS == *arrayQS);
+    assert(*arrayQS == *arrayShS);
+    assert(*arrayShS == *arrayInsS);
+    qsort(arr, 1000, sizeof(int), comp1);
+    ArraySequence<int> array1(arr, 1000);
+    assert(array1 == *arraySelS);
     delete [] arr;
-    delete [] arr2;
-    Complex a(1, 1);
-    Complex b(-2, 4);
-    Complex* c = new Complex[2];
-    c[0] = a;
-    c[1] = b;
-    Vector<Complex> v4(c, 2, 1);
-    Vector<Complex> v5(v4);
-    Vector<Complex> vv4(c, 2, 2);
-    Vector<Complex> vv5(v4);
-    delete [] c;
-}
-
-void test_operations_vector() {
-    int* arr = new int[10];
-    for (int i = 0; i < 10; i++) {
-        arr[i] = i;
-    }
-    int* arr2 = new int[10];
-    for (int i = 0; i < 10; i++) {
-        arr2[i] = 2 * i;
-    }
-    int* arr3 = new int[10];
-    for (int i = 0; i < 10; i++) {
-        arr3[i] = 3 * i;
-    }
-    Vector<int> v(arr, 10, 2);
-    Vector<int> v2(arr2, 10, 2);
-    Vector<int> v3(arr3, 10, 2);
-    assert((v + v2) == v3);
-    assert((3 * v) == v3);
-    assert((v * 3) == v3);
-    assert((2 * v2 - v) == v3);
-
-    Vector<int> vv(arr, 10, 1);
-    Vector<int> vv2(arr2, 10, 1);
-    Vector<int> vv3(arr3, 10, 1);
-    assert((vv + vv2) == vv3);
-    assert((3 * vv) == vv3);
-    assert((vv * 3) == vv3);
-    assert((2 * vv2 - v) == vv3);
-    assert((v * v2) == 570);
-    assert((vv * vv2) == 570);
-    Complex a(1, 0);
-    Complex b(3, 4);
-    Complex e(-3, 1);
-    Complex* c = new Complex[2];
-    c[0] = a;
-    c[1] = b;
-    Complex* f = new Complex[2];
-    f[0] = b;
-    f[1] = e;
-    Complex* g = new Complex[2];
-    g[0] = b + a;
-    g[1] = e + b;
-    Vector<Complex> v4(c, 2, 1);
-    Vector<Complex> v5(f, 2, 1);
-    Vector<Complex> v6(g, 2, 1);
-    assert(v4.Norma() == 6); /// norma - sum module
-    assert((v4 + v5) == v6);
-    delete [] c;
-    delete [] f;
-    delete [] g;
-    delete [] arr;
-    delete [] arr2;
-    delete [] arr3;
+    delete arrayInsS;
+    delete arraySelS;
+    delete arrayQS;
+    delete arrayShS;
 }

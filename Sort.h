@@ -34,15 +34,17 @@ private:
                     j--;
                 }
                 if (i <= j) {
-                    T elem = seq->Get(i);
-                    seq->Set(seq->Get(j), i);
-                    seq->Set(elem, j);
+                    if (!cmp(seq->Get(i), seq->Get(j))) {
+                        T elem = seq->Get(i);
+                        seq->Set(seq->Get(j), i);
+                        seq->Set(elem, j);
+                    }
                     i++;
                     j--;
                 }
-                QuickSorting(seq, l, j, cmp);
-                QuickSorting(seq, i, r, cmp);
             }
+            if (i < r) QuickSorting(seq, i, r, cmp);
+            if (l < j) QuickSorting(seq, l, j, cmp);
         }
     }
 public:
@@ -133,3 +135,7 @@ public:
     }
     ~SelectionSort() override {}  
 };
+
+int comp1 (const void * a, const void * b) {
+  return ( *(int*)a - *(int*)b );
+}

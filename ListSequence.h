@@ -1,4 +1,5 @@
 #pragma once
+#include <stdlib.h>
 #include "LinkedList.h"
 #include "Sequence.h"
 
@@ -41,8 +42,13 @@ public:
     void Set(T item, int index) override {
         this->list->Set(index, item);
     }
-    void Print() override{
+    void Print() override {
         this->list->Print();
+    }
+    void Random() override {
+        for (int i = 0; i < this->GetLength(); i++) {
+            this->Set(rand(), i);
+        }
     }
     ListSequence<T>* GetSubSequence(int startIndex , int endIndex) override {
         ListSequence<T>* newListSequence = new ListSequence<T>;

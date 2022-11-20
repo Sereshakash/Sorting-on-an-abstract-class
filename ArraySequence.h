@@ -1,4 +1,5 @@
 #pragma once
+#include <stdlib.h>
 #include "DynamicArray.h"
 #include "Sequence.h"
 
@@ -43,6 +44,11 @@ public:
     }
     void Print() override {
         this->arr->Print();
+    }
+    void Random() override {
+        for (int i = 0; i < this->GetLength(); i++) {
+            this->Set(rand(), i);
+        }
     }
     ArraySequence<T>* GetSubSequence(int startIndex , int endIndex) override {
         ArraySequence<T>* newArraySequence = new ArraySequence<T>;

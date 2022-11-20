@@ -13,6 +13,7 @@ public:
     virtual void Prepend(T item) = 0;
     virtual void InsertAt(T item, int index) = 0;
     virtual void Print() = 0;
+    virtual void Random() = 0;
     virtual Sequence<T>* GetSubSequence(int startIndex, int endIndex) = 0;
     virtual Sequence<T>* CopySequence() = 0;
     virtual Sequence<T>* Concat(Sequence<T>* list) = 0;
